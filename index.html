@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Expense Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image" href="./assets/company-icon.avif" />
+</head>
+<body>
+
+  <!-- ========== Header ========== -->
+  <header class="header">
+    <h1>Manage Your Travelling Expense</h1>
+  </header>
+
+  <!-- 🧾 Expense Form -->
+  <main class="main-content">
+    <section class="card">
+      <h2>➕ Add Expense</h2>
+      <form id="expenseForm">
+        <input type="text" id="title" placeholder="What was it for? e.g. Lunch" required />
+        <input type="text" id="location" placeholder="Where? e.g. Dada Boudi Biriyani" required />
+        <input type="number" id="amount" placeholder="Amount e.g. 1200" step="0.01" required />
+
+        <div class="inline-group">
+          <input type="text" id="newUserName" placeholder="Add Members" />
+          <button type="button" onclick="addUser()">+ Add</button>
+        </div>
+        <div id="userList" class="small-list"></div>
+
+        <select id="paid_by" required>
+          <option value="">Who Paid?</option>
+        </select>
+
+        <div id="owedAmounts" class="small-list"></div>
+        <button type="submit" class="primary-btn">💾 Save Expense</button>
+      </form>
+    </section>
+
+    <!-- 📊 Summary -->
+    <section class="card">
+      <h2>📊 Summary</h2>
+      <div class="inline-group">
+        <button type="button" class="primary-btn" onclick="loadSummary()">🔄 Refresh Summary</button>
+        <button type="button" class="delete-btn" onclick="deleteHistory()">🗑️ Delete History</button>
+      </div>
+      <div id="summary" class="summary-box"></div>
+    </section>
+  </main>
+
+  <!-- ========== Footer ========== -->
+  <footer class="site-footer">
+    <p>&copy; 2025 OPENROOT. All rights reserved.</p>
+    <p>Made with ❤️ for travellers.</p>
+  </footer>
+
+  <div id="toast-container"></div>
+  <script src="/script.js"></script>
+</body>
+</html>

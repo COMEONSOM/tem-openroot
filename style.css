@@ -1,0 +1,214 @@
+/* ============================================================
+🎨 TRAVEL EXPENSE MANAGER — CLEAN VERSION 2.0
+NO AUTH STYLES | ONLY ACTIVE ELEMENTS
+============================================================ */
+
+/* ================================
+🎨 Root Variables (Theme Colors)
+================================= */
+:root {
+  --color-bg: #f5f7fa;
+  --color-text: #333;
+  --color-primary: #4f46e5; /* Indigo */
+  --color-primary-dark: #4338ca;
+  --color-success: #10b981; /* Emerald */
+  --color-success-dark: #059669;
+  --color-danger: #ef4444; /* Red */
+  --color-danger-dark: #dc2626;
+  --color-light-gray: #e5e7eb;
+  --color-dark-gray: #6b7280;
+  --color-input-border: #ccc;
+  --color-input-focus: var(--color-primary);
+  --color-card-bg: #fff;
+  --color-card-shadow: rgba(0, 0, 0, 0.08);
+  --radius-small: 6px;
+  --radius-medium: 8px;
+  --radius-large: 12px;
+  --transition-speed: 0.3s;
+  --max-width: 800px;
+  --font-family: 'Inter', sans-serif;
+}
+
+/* ================================
+🌐 Global Reset & Base Styles
+================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+/* ================================
+📌 Typography
+================================= */
+h1, h2 {
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+/* ================================
+🔘 Buttons
+================================= */
+button {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-medium);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition-speed) ease-in-out, transform 0.1s ease;
+}
+
+button:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.delete-btn {
+  background: var(--color-danger);
+}
+
+.delete-btn:hover {
+  background: var(--color-danger-dark);
+}
+
+/* ================================
+📥 Inputs and Selects
+================================= */
+input, select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-small);
+  transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+input:focus, select:focus {
+  border-color: var(--color-input-focus);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+/* ================================
+📦 Layout: Header
+================================= */
+header.header {
+  width: 100%;
+  max-width: var(--max-width);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* ================================
+📦 Layout: Main Content & Cards
+================================= */
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+  max-width: var(--max-width);
+}
+
+.card {
+  background: var(--color-card-bg);
+  border-radius: var(--radius-large);
+  padding: 1rem;
+  box-shadow: 0 4px 12px var(--color-card-shadow);
+}
+
+.inline-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.small-list, .summary-box {
+  background: #f1f5f9;
+  border-radius: var(--radius-small);
+  padding: 0.8rem;
+  color: var(--color-dark-gray);
+}
+
+.summary-box {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* ================================
+🔔 Toast Notifications
+================================= */
+.toast {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-medium);
+  margin-top: 0.5rem;
+  animation: fadeInOut 4s forwards;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.toast.error {
+  background: var(--color-danger);
+}
+
+.toast.success {
+  background: var(--color-success);
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* ================================
+📱 Responsive
+================================= */
+@media (min-width: 600px) {
+  .main-content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ================================
+🦶 Footer
+================================= */
+.site-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.9rem;
+  color: var(--color-dark-gray);
+  border-top: 1px solid #ddd;
+  margin-top: 2rem;
+}
