@@ -11,29 +11,50 @@
 <body>
 
   <!-- ========== Header ========== -->
+  
   <header class="header">
-    <h1>Manage Your Travelling Expense</h1>
+    <div class="header-content">
+        <img src="./assets/openroot-white-nobg.png" alt="Company Logo" class="company-logo" />
+        <h1>#Manage-Your-Travelling-Expense</h1>
+    </div>
   </header>
+
 
   <!-- 🧾 Expense Form -->
   <main class="main-content">
     <section class="card">
       <h2>➕ Add Expense</h2>
       <form id="expenseForm">
+        <!-- Expense Details -->
         <input type="text" id="title" placeholder="What was it for? e.g. Lunch" required />
         <input type="text" id="location" placeholder="Where? e.g. Dada Boudi Biriyani" required />
         <input type="number" id="amount" placeholder="Amount e.g. 1200" step="0.01" required />
 
+        <!-- Add Members -->
         <div class="inline-group">
           <input type="text" id="newUserName" placeholder="Add Members" />
           <button type="button" onclick="addUser()">+ Add</button>
         </div>
         <div id="userList" class="small-list"></div>
 
-        <select id="paid_by" required>
-          <option value="">Who Paid?</option>
+        <!-- PAYMENT TYPE -->
+        <select id="payment_type" onchange="togglePaidByUI()" required>
+            <option value="">Payment Details</option>
+            <option value="single">Paid by Single User</option>
+            <option value="multiple">Paid by Multiple Users</option>
         </select>
 
+        <!-- SINGLE USER DROPDOWN -->
+        <select id="paid_by" style="display:none;">
+            <option value="">Who Paid?</option>
+        </select>
+
+        <!-- MULTIPLE USERS CHECKBOXES -->
+        <div id="multiPayerContainer" style="display:none;">
+            <div id="multiPayerList"></div>
+        </div>
+
+        <!-- Owed Amounts Section -->
         <div id="owedAmounts" class="small-list"></div>
         <button type="submit" class="primary-btn">💾 Save Expense</button>
       </form>
@@ -56,7 +77,29 @@
     <p>Made with ❤️ for travellers.</p>
   </footer>
 
+  <!-- Toast Notifications -->
   <div id="toast-container"></div>
+
+  <script>
+    // JS: Toggle between single/multiple payment modes
+    function togglePaymentMode() {
+      const type = document.getElementById("paymentType").value;
+      const single = document.getElementById("singlePayer");
+      const multiple = document.getElementById("multiPayer");
+
+      if (type === "single") {
+        single.classList.remove("hidden");
+        multiple.classList.add("hidden");
+      } else if (type === "multiple") {
+        multiple.classList.remove("hidden");
+        single.classList.add("hidden");
+      } else {
+        single.classList.add("hidden");
+        multiple.classList.add("hidden");
+      }
+    }
+  </script>
+
   <script src="./script.js"></script>
 </body>
 </html>
