@@ -1,5 +1,5 @@
 /* ============================================================
-   ✈️ TRAVEL EXPENSE MANAGER — STYLE SHEET v2.0
+   ✈️ TRAVEL EXPENSE MANAGER — STYLE SHEET VERSION 2025.6
    COMPACT | MODERN | MOBILE-RESPONSIVE
    ============================================================ */
 
@@ -297,13 +297,16 @@ input:focus, select:focus {
 ---------------------------- */
 #toast-container {
   position: fixed;
-  bottom: 1rem;
-  right: 1rem;
+  top: 1rem;             /* move to top */
+  left: 50%;             /* center horizontally */
+  transform: translateX(-50%);  /* perfect centering */
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   z-index: 9999;
+  pointer-events: none;  /* optional: allows clicks through to page */
 }
+
 
 .toast {
   padding: 0.75rem 1rem;

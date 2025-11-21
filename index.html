@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Expense Manager</title>
+  <title> Openroot Travel Expense Manager</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css" />
   <link rel="icon" type="image" href="./assets/company-icon.avif" />
@@ -11,93 +11,155 @@
 <body>
 
   <!-- ========== Header ========== -->
-  
   <header class="header">
     <div class="header-content">
         <img src="./assets/openroot-white-nobg.png" alt="Company Logo" class="company-logo" />
-        <h1>#Manage-Your-Travelling-Expense</h1>
+        <h1 data-i18n="main_title">#Manage-Your-Travelling-Expense</h1>
     </div>
   </header>
 
+  <!-- Language Switcher -->
+  <div style="text-align:center; margin: 14px 0;">
+    <select id="langSwitcher">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी</option>
+      <option value="bn">বাংলা</option> 
+    </select>
+
+    <!-- 📌 How to Use Button -->
+    <button onclick="window.location.href='https://openroot.in/how-to-use-expense-app';"
+            style="padding:6px 14px; margin-left: 2rem; border:none; background:#f9fafc; color:#000000; border-radius:6px; cursor:pointer;">
+    ❓ How to Use
+    </button>
+  </div>
 
   <!-- 🧾 Expense Form -->
   <main class="main-content">
     <section class="card">
-      <h2>➕ Add Expense</h2>
+      <h2 data-i18n="add_expense_title">➕ Add Expense</h2>
       <form id="expenseForm">
-        <!-- Expense Details -->
-        <input type="text" id="title" placeholder="What was it for? e.g. Lunch" required />
-        <input type="text" id="location" placeholder="Where? e.g. Dada Boudi Biriyani" required />
-        <input type="number" id="amount" placeholder="Amount e.g. 1200" step="0.01" required />
+        <input type="text" id="title" data-i18n-placeholder="input_title" placeholder="What was it for? e.g. Lunch" required />
+        <input type="text" id="location" data-i18n-placeholder="input_location" placeholder="Where? e.g. Dada Boudi Biriyani" required />
+        <input type="number" id="amount" data-i18n-placeholder="input_amount" placeholder="Amount e.g. 1200" step="0.01" required />
 
-        <!-- Add Members -->
         <div class="inline-group">
-          <input type="text" id="newUserName" placeholder="Add Members" />
-          <button type="button" onclick="addUser()">+ Add</button>
+          <input type="text" id="newUserName" data-i18n-placeholder="add_member" placeholder="Add Members" />
+          <button type="button" onclick="addUser()" data-i18n="btn_add">+ Add</button>
         </div>
+        
+        <!-- ADD THIS BELOW -->
         <div id="userList" class="small-list"></div>
 
-        <!-- PAYMENT TYPE -->
         <select id="payment_type" onchange="togglePaidByUI()" required>
-            <option value="">Payment Details</option>
-            <option value="single">Paid by Single User</option>
-            <option value="multiple">Paid by Multiple Users</option>
+            <option value="" data-i18n="payment_details">Payment Details</option>
+            <option value="single" data-i18n="paid_single">Paid by Single User</option>
+            <option value="multiple" data-i18n="paid_multiple">Paid by Multiple Users</option>
         </select>
 
-        <!-- SINGLE USER DROPDOWN -->
         <select id="paid_by" style="display:none;">
-            <option value="">Who Paid?</option>
+            <option value="" data-i18n="who_paid">Who Paid?</option>
         </select>
 
-        <!-- MULTIPLE USERS CHECKBOXES -->
         <div id="multiPayerContainer" style="display:none;">
             <div id="multiPayerList"></div>
         </div>
 
-        <!-- Owed Amounts Section -->
         <div id="owedAmounts" class="small-list"></div>
-        <button type="submit" class="primary-btn">💾 Save Expense</button>
+        <button type="submit" class="primary-btn" data-i18n="save_btn">💾 Save Expense</button>
       </form>
     </section>
 
-    <!-- 📊 Summary -->
     <section class="card">
-      <h2>📊 Summary</h2>
+      <h2 data-i18n="summary_title">📊 Summary</h2>
       <div class="inline-group">
-        <button type="button" class="primary-btn" onclick="loadSummary()">🔄 Refresh Summary</button>
-        <button type="button" class="delete-btn" onclick="deleteHistory()">🗑️ Delete History</button>
+        <button type="button" class="primary-btn" onclick="loadSummary()" data-i18n="refresh_btn">🔄 Refresh Summary</button>
+        <button type="button" class="delete-btn" onclick="deleteHistory()" data-i18n="delete_btn">🗑️ Delete History</button>
       </div>
       <div id="summary" class="summary-box"></div>
     </section>
   </main>
 
-  <!-- ========== Footer ========== -->
   <footer class="site-footer">
-    <p>&copy; 2025 OPENROOT. All rights reserved.</p>
-    <p>Made with ❤️ for travellers.</p>
+    <p data-i18n="footer_line1">&copy; 2025 OPENROOT. All rights reserved.</p>
+    <p data-i18n="footer_line2">Made with ❤️ for travellers.</p>
   </footer>
 
-  <!-- Toast Notifications -->
   <div id="toast-container"></div>
 
+  <!-- 🔥 TRANSLATION SCRIPT -->
   <script>
-    // JS: Toggle between single/multiple payment modes
-    function togglePaymentMode() {
-      const type = document.getElementById("paymentType").value;
-      const single = document.getElementById("singlePayer");
-      const multiple = document.getElementById("multiPayer");
-
-      if (type === "single") {
-        single.classList.remove("hidden");
-        multiple.classList.add("hidden");
-      } else if (type === "multiple") {
-        multiple.classList.remove("hidden");
-        single.classList.add("hidden");
-      } else {
-        single.classList.add("hidden");
-        multiple.classList.add("hidden");
+    const translations = {
+      en: {
+        main_title:"#Manage-Your-Travelling-Expense",
+        add_expense_title:"➕ Add Expense",
+        input_title:"What was the expense for? e.g. Lunch",
+        input_location:"Where was it spent? e.g. Dada Boudi Biriyani",
+        input_amount:"Amount Spent e.g. 1200",
+        add_member:"Add Members",
+        btn_add:"+ Add",
+        payment_details:"Payment Details",
+        paid_single:"Paid by Single Member",
+        paid_multiple:"Paid by Multiple Members",
+        who_paid:"Who Paid?",
+        save_btn:"💾 Save Expense",
+        summary_title:"📊 Summary & Balance",
+        refresh_btn:"🔄 Refresh Summary",
+        delete_btn:"🗑️ Delete History",
+        footer_line1:"© 2025 OPENROOT. All rights reserved.",
+        footer_line2:"Smart Travel Expense Manager for everyone 🌍" },
+      hi: {
+        main_title: "#यात्रा खर्च प्रबंधन",
+        add_expense_title: "➕ खर्च जोड़ें",
+        input_title: "खर्च किस पर हुआ? जैसे Lunch 😋",
+        input_location: "कहाँ खर्च हुआ? जैसे दादा बौदी बिरयानी 🤤",
+        input_amount:"कितनी राशि खर्च हुई? जैसे 1200",
+        add_member: "साथी जोड़ें",
+        btn_add: "+ जोड़ें",
+        payment_details: "भुगतान विवरण",
+        paid_single: "एक सदस्य ने भुगतान किया 😎",
+        paid_multiple: "कई सदस्यों ने मिलकर भुगतान किया 👥",
+        who_paid: "किसने भुगतान किया?",
+        save_btn: "💾 खर्च सुरक्षित करें",
+        summary_title: "📊 खर्च का सारांश",
+        refresh_btn: "🔄 सारांश रीफ्रेश करें",
+        delete_btn: "🗑️ इतिहास हटाएँ",
+        footer_line1: "© 2025 OPENROOT. सर्वाधिकार सुरक्षित।",
+        footer_line2: "यात्रियों के लिए स्मार्ट खर्च प्रबंधन 🌍" },
+      bn: {
+        main_title: "#ভ্রমণের খরচের মহাভারত 😜",
+        add_expense_title: "➕ খরচ যোগ করো",
+        input_title: "কিসের জন্য খরচ? যেমন: লাঞ্চ",
+        input_location: "খরচের বিবরণ! যেমন: দাদাবৌদি বিরিয়ানি",
+        input_amount: "কত টাকা উড়লো? 😂 যেমন: 1200",
+        add_member: "বন্ধু add করো",
+        btn_add: "+ Add",
+        payment_details: "পেমেন্ট টাইপ",
+        paid_single: "একজন দিয়েছে",
+        paid_multiple: "অনেকে মিলে দিয়েছে",
+        who_paid: "কে দিয়েছে?",
+        save_btn: "💾 সেভ কর",
+        summary_title: "📊 ট্রাভেল খরচ Summary",
+        refresh_btn: "🔄 Refresh",
+        delete_btn: "🗑️ সব উড়িয়ে দে",
+        footer_line1: "© 2025 OPENROOT. All rights reserved.",
+        footer_line2: "বন্ধুদের সাথে trip মানে বাজেটের ফাটাফাটি 😆"
       }
+    };
+
+    function applyTranslations(lang) {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        el.innerHTML = translations[lang][el.getAttribute("data-i18n")];
+      });
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        el.placeholder = translations[lang][el.getAttribute("data-i18n-placeholder")];
+      });
     }
+
+    document.getElementById("langSwitcher").addEventListener("change", function () {
+      applyTranslations(this.value);
+    });
+
+    applyTranslations("en");
   </script>
 
   <script src="./script.js"></script>

@@ -1,5 +1,5 @@
 // ============================================================
-// ✈️ TRAVEL EXPENSE MANAGER — LOCAL VERSION 2.6
+// ✈️ TRAVEL EXPENSE MANAGER — VERSION 2025.6
 // MULTI-PAYER (CUSTOM AMOUNTS) | STRUCTURED SUMMARY | LOCALSTORAGE
 // ============================================================
 
